@@ -18,6 +18,7 @@
 #include <X11/extensions/dpms.h>
 #include <X11/extensions/Xinerama.h>
 #include <X11/keysym.h>
+#include <X11/XF86keysym.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
@@ -270,6 +271,28 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 				}
 			}
 			switch (ksym) {
+			case XF86XK_AudioStop:
+			case XF86XK_AudioPlay:
+				system("exec /usr/bin/dbus-send \
+					--print-reply \
+					--dest=org.mpris.MediaPlayer2.spotify \
+					/org/mpris/MediaPlayer2 \
+					org.mpris.MediaPlayer2.Player.PlayPause");
+				break;
+			case XF86XK_AudioNext:
+				system("exec /usr/bin/dbus-send \
+					--print-reply \
+					--dest=org.mpris.MediaPlayer2.spotify \
+					/org/mpris/MediaPlayer2 \
+					org.mpris.MediaPlayer2.Player.Next");
+				break;
+			case XF86XK_AudioPrev:
+				system("exec /usr/bin/dbus-send \
+					--print-reply \
+					--dest=org.mpris.MediaPlayer2.spotify \
+					/org/mpris/MediaPlayer2 \
+					org.mpris.MediaPlayer2.Player.Previous");
+				break;
 			case XK_Return:
 				passwd[len] = '\0';
 				errno = 0;
