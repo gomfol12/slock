@@ -15,7 +15,7 @@ static const int failonclear = 1;
 static const int controlkeyclear = 1;
 
 /* time in seconds before the monitor shuts down */
-static const int monitortime = 20;
+static const int monitortime = 300;
 
 /* default message */
 static const char * message = "message";
